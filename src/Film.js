@@ -9,7 +9,7 @@ export default class Film extends React.Component {
     }
 
     render() {
-        return (
+        return( 
             <Card>
                 <Card.Img variant="top" src={this.props.Poster} />
                 <Card.Body>

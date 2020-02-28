@@ -19,18 +19,20 @@ export default class Search extends React.Component {
         this.setState({ searchTerm: event.target.value });
     }
 
-    handleClick = (event) => {
-        axios.get(`http://www.omdbapi.com/?apikey=335035be&s=${this.state.searchTerm}`).then(response => {
-            if (response.data.Error) {
-                this.setState({ error: response.data.Error });
-            } else {
-                this.setState({ films: response.data.Search, error: "" });
-            }
-        }).catch(err => {
-            debugger;
-            console.error(err);
-            this.setState({ error: err });
-        });
+    handleSearch = (event) => {
+        event.preventDefault();
+        axios.get(`http://www.omdbapi.com/?apikey=335035be&s=${this.state.searchTerm}`)
+            .then(response => {
+                if (response.data.Error) {
+                    this.setState({ error: response.data.Error });
+                } else {
+                    this.setState({ films: response.data.Search, error: "" });
+                }
+            }).catch(err => {
+                debugger;
+                console.error(err);
+                this.setState({ error: err });
+            });
     }
 
     getDetails = (id) => {
@@ -41,7 +43,7 @@ export default class Search extends React.Component {
     render() {
         return (
             <div>
-                <SearchBar searchTerm={this.state.searchTerm} handleChange={this.handleChange} handleClick={this.handleClick} />
+                <SearchBar searchTerm={this.state.searchTerm} handleChange={this.handleChange} searchFunc={this.handleSearch} />
                 {this.state.error ?
                     <Alert variant="danger" onClose={() => this.setState({ error: '' })} dismissible>
                         <Alert.Heading>{this.state.error}</Alert.Heading>

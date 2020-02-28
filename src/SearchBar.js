@@ -1,15 +1,17 @@
 import React from 'react';
-import { InputGroup, FormControl, Button } from 'react-bootstrap';
+import { InputGroup, FormControl, Button, Form } from 'react-bootstrap';
 
 export default function SearchBar(props) {
     return (
-        <InputGroup>
-            <FormControl onChange={props.handleChange}
-                placeholder="Enter search term here"
-            />
-            <InputGroup.Append>
-                <Button onClick={props.handleClick}>Button</Button>
-            </InputGroup.Append>
-        </InputGroup>
+        <Form onSubmit={props.searchFunc}>
+            <InputGroup>
+                <FormControl onChange={props.handleChange} value={props.SearchTerm}
+                    placeholder="Enter search term here"
+                />
+                <InputGroup.Append>
+                    <Button onClick={props.searchFunc}>Button</Button>
+                </InputGroup.Append>
+            </InputGroup>
+        </Form>
     );
 }

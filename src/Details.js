@@ -11,14 +11,14 @@ export default class Details extends React.Component {
         }
     }
 
-    componentDidMount(props) {
-        axios.get(`http://www.omdbapi.com/?apikey=335035be&i=${this.props.match.params.id}`)
+    componentDidMount() {
+        console.log('props: ', this.props?.match);
+        axios.get(`http://www.omdbapi.com/?apikey=335035be&i=${this.props.match?.params?.id || 'fuck'}`)
             .then(response => this.setState({ details: response.data }))
             .catch(err => console.error(err));
     }
 
     render() {
-        console.log(this.state.details);
         return (
             <Container>
                 <Row>
@@ -47,6 +47,10 @@ export default class Details extends React.Component {
                                 <tr>
                                     <td>Metascore:</td>
                                     <td> {this.state.details.Metascore}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ratings:</td>
+                                    <td> {this.state.details.Ratings && this.state.details.Ratings.map(rate => <p>{`${rate.Source}: ${rate.Value}`}</p>)}</td>
                                 </tr>
                                 <tr>
                                     <td>Plot:</td>
