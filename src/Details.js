@@ -13,7 +13,7 @@ export default class Details extends React.Component {
 
     componentDidMount() {
         console.log('props: ', this.props?.match);
-        axios.get(`http://www.omdbapi.com/?apikey=335035be&i=${this.props.match?.params?.id || 'fuck'}`)
+        axios.get(`http://www.omdbapi.com/?apikey=335035be&i=${this.props.match?.params?.id}`)
             .then(response => this.setState({ details: response.data }))
             .catch(err => console.error(err));
     }
